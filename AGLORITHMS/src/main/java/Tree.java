@@ -243,9 +243,47 @@ public class Tree {
         return res == Integer.MAX_VALUE?-1:res;
     }
 
+    //回溯算法
+    //存储路径
+    LinkedList<LinkedList<Integer>> res = new LinkedList<LinkedList<Integer>>();
+    LinkedList<LinkedList<Integer>> Permute(int[] nums){
+        //路径
+        LinkedList<Integer> track = new LinkedList<Integer>();
+        backtrack(nums,track);
+        return  res;
+    }
+    void backtrack(int[] nums,LinkedList<Integer> track){
+        if(nums.length == track.size()){
+            res.add(new LinkedList(track)); //TODO 不清楚为什么实例化链表项
+            return;
+        }
+        for(int i=0;i<nums.length;i++){
+            if(track.contains(nums[i]))
+                continue;
+            track.add(nums[i]);
+            backtrack(nums,track);
+            track.removeLast();
+        }
+    }
+
     public static void main(String[] args) {
-        System.out.println(new Tree().fic(12));
-        System.out.println(new Tree().CoinAmount(new int[]{1,2,5},10));
+        //全排列 回溯算法
+        List<LinkedList<Integer>> ress = new Tree().Permute(new int[]{1,2,3,4,5});
+        System.out.println("[");
+        for(LinkedList<Integer> re:ress){
+            System.out.print("[");
+            for(Integer t:re){
+                System.out.print(t+" ");
+            }
+            System.out.println("]");
+        }
+        System.out.println("]");
+
+        //斐波那契 动态规划测试
+//        System.out.println(new Tree().fic(12));
+//        System.out.println(new Tree().CoinAmount(new int[]{1,2,5},10));
+
+        //树的基本操作
 //        List<TreeNode> treeNodes = new Tree().generateTrees(10);
 //        for(TreeNode treeNode:treeNodes){
 //            preorderTraversal(treeNode);
